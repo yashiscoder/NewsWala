@@ -1,8 +1,8 @@
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import React, { Component } from "react";
 
 export class Navbar extends Component {
-  static propTypes = {};
+  // static propTypes = {};
 
   render() {
     return (
@@ -10,7 +10,7 @@ export class Navbar extends Component {
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
           <div className="container-fluid">
             <a className="navbar-brand" href="/">
-              NewsWala - A Daily News App
+              NewsWala
             </a>
             <button
               className="navbar-toggler"

@@ -10,7 +10,7 @@ export class Navbar extends Component {
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
           <div className="container-fluid">
             <a className="navbar-brand" href="/">
-              NewsWala
+              NewsWala - A Daily News App
             </a>
             <button
               className="navbar-toggler"

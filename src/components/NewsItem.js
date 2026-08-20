@@ -1,11 +1,30 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
 
 export class Newsitem extends Component {
+array = [];
+constructor(){
+  super();
+}
+
   render() {
+    let {title, description, imageUrl} = this.props;
     return (
-      <div>Newsitem</div>
-    )
+      <div className="my-2">
+        <div className="card" style={{width: "18rem"}}>
+          <img src={imageUrl} className="card-img-top" alt="IMG" />
+          <div className="card-body">
+            <h5 className="card-title">{title}</h5>
+            <p className="card-text">
+              {description}
+            </p>
+            <a href="/newsdetail" className="btn btn sm btn-primary">
+              Go to news
+            </a>
+          </div>
+        </div>
+      </div>
+    );
   }
 }
 
-export default Newsitem
+export default Newsitem;

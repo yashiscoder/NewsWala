@@ -9,51 +9,53 @@ export class News extends Component {
       articles: [],
       loading: false,
       page: 1,
+      totalResults: 0,
     };
   }
 
   async componentDidMount() {
-    let url =`https://newsapi.org/v2/everything?q=apple&from=2026-08-20&to=2026-08-20&sortBy=popularity&apiKey=eba2cc36777248e1839d0373ac856e1d&page=1&pageSize=12`;
+    let url = `https://newsapi.org/v2/everything?q=apple&from=2026-08-20&to=2026-08-20&sortBy=popularity&apiKey=${process.env.REACT_APP_NEWS_API_KEY}&page=1&pageSize=12`;
 
     let data = await fetch(url);
     let parsedData = await data.json();
-
+    console.log(parsedData);
     this.setState({
-      articles: parsedData.articles, totalResults: parsedData.totalResults
+      articles: parsedData.articles || [],
+      totalResults: parsedData.totalResults,
     });
   }
 
   handleNextClick = async () => {
     let nextPage = this.state.page + 1;
-    if(this.state.page + 1 > Math.ceil(this.state.totalResults/20)){
 
-    }else{
-    let url = `https://newsapi.org/v2/everything?q=apple&from=2026-08-20&to=2026-08-20&sortBy=popularity&apiKey=eba2cc36777248e1839d0373ac856e1d&page=${this.state.page+1}&pageSize=12`;
+    if (nextPage > Math.ceil(this.state.totalResults / 12)) {
+      return;
+    }
+
+    let url = `https://newsapi.org/v2/everything?q=apple&from=2026-08-20&to=2026-08-20&sortBy=popularity&apiKey=${process.env.REACT_APP_NEWS_API_KEY}&page=${nextPage}&pageSize=12`;
 
     let data = await fetch(url);
     let parsedData = await data.json();
-
+    console.log(parsedData);
     this.setState({
-      articles: parsedData.articles,
+      articles: parsedData.articles || [],
       page: nextPage,
     });
-  }
   };
-
   handlePrevClick = async () => {
     let prevPage = this.state.page - 1;
-    if(this.state.page - 1 <Math.ceil(this.state.totalResults)){
+    if (this.state.page <= 1) {
+    } else {
+      let url = `https://newsapi.org/v2/everything?q=apple&from=2026-08-20&to=2026-08-20&sortBy=popularity&apiKey=${process.env.REACT_APP_NEWS_API_KEY}&page=${this.state.page - 1}&pageSize=12`;
 
-    }else{
-    let url = `https://newsapi.org/v2/everything?q=apple&from=2026-08-20&to=2026-08-20&sortBy=popularity&apiKey=eba2cc36777248e1839d0373ac856e1d&page=${this.state.page - 1}&pageSize=12`;
-
-    let data = await fetch(url);
-    let parsedData = await data.json();
-
-    this.setState({
-      articles: parsedData.articles,
-      page: prevPage,
-    });}
+      let data = await fetch(url);
+      let parsedData = await data.json();
+      console.log(parsedData);
+      this.setState({
+        articles: parsedData.articles || [],
+        page: prevPage,
+      });
+    }
   };
 
   render() {
